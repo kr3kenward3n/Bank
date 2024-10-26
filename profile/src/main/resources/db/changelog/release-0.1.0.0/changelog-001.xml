@@ -1,0 +1,167 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+    <changeSet author="Рустам" id="1672956301685-1">
+        <createTable remarks="у одного профиля много счетов" tableName="account_details_id">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="account_details_id_pkey"/>
+            </column>
+            <column name="account_id" remarks="технический идентификатор банковского счёта" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="profile_id" remarks="ссылка на профиль" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672956301685-2">
+        <createTable remarks="фактическая регистрация" tableName="actual_registration">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="actual_registration_pkey"/>
+            </column>
+            <column name="country" remarks="страна" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="region" remarks="регион" type="VARCHAR(160)"/>
+            <column name="city" remarks="город" type="VARCHAR(160)"/>
+            <column name="district" remarks="район" type="VARCHAR(160)"/>
+            <column name="locality" remarks="населенный пункт" type="VARCHAR(230)"/>
+            <column name="street" remarks="улица" type="VARCHAR(230)"/>
+            <column name="house_number" remarks="номер дома" type="VARCHAR(20)"/>
+            <column name="house_block" remarks="корпус" type="VARCHAR(20)"/>
+            <column name="flat_number" remarks="номер квартиры" type="VARCHAR(40)"/>
+            <column name="index" remarks="индекс" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672956301685-3">
+        <createTable remarks="аудит" tableName="audit">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="audit_pkey"/>
+            </column>
+            <column name="entity_type" remarks="тип сущности" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="operation_type" remarks="тип операции" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" remarks="кто создал" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_by" remarks="кто изменил" type="VARCHAR(255)"/>
+            <column name="created_at" remarks="когда создан" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_at" remarks="когда изменен" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="new_entity_json" remarks="json, заполняется при изменении" type="TEXT"/>
+            <column name="entity_json" remarks="json, заполняется при изменение и при сохранении" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672956301685-4">
+        <createTable remarks="паспорт" tableName="passport">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="passport_pkey"/>
+            </column>
+            <column name="series" remarks="серия" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" remarks="номер" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" remarks="фамилия" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" remarks="имя" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middle_name" remarks="отчество" type="VARCHAR(255)"/>
+            <column name="gender" remarks="пол(в формате МУЖ или ЖЕН)" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_date" remarks="дата рождения" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_place" remarks="место рождения" type="VARCHAR(480)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="issued_by" remarks="кем выдан" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_issue" remarks="дата выдачи" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="division_code" remarks="код подразделения" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiration_date" remarks="cрок действия" type="date"/>
+            <column name="registration_id" remarks="ссылка на регистрацию" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672956301685-5">
+        <createTable remarks="банковсий профиль" tableName="profile">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="profile_pkey"/>
+            </column>
+            <column name="phone_number" remarks="номер телефона, без +7" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" remarks="е-мейл" type="VARCHAR(264)"/>
+            <column name="name_on_card" remarks="имя на пластиковой карте" type="VARCHAR(370)"/>
+            <column name="inn" remarks="ИНН" type="BIGINT"/>
+            <column name="snils" remarks="снилс" type="BIGINT"/>
+            <column name="passport_id" remarks="ссылка на паспорт" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="actual_registration_id" remarks="ссылка на фактическую регистрацию(может и не быть)" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672956301685-6">
+        <createTable remarks="регистрация" tableName="registration">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="registration_pkey"/>
+            </column>
+            <column name="country" remarks="страна" type="VARCHAR(166)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="region" remarks="регион" type="VARCHAR(160)"/>
+            <column name="city" remarks="город" type="VARCHAR(160)"/>
+            <column name="district" remarks="район" type="VARCHAR(160)"/>
+            <column name="locality" remarks="населенный пункт" type="VARCHAR(230)"/>
+            <column name="street" remarks="улица" type="VARCHAR(230)"/>
+            <column name="house_number" remarks="номер дома" type="VARCHAR(20)"/>
+            <column name="house_block" remarks="корпус" type="VARCHAR(20)"/>
+            <column name="flat_number" remarks="номер квартиры" type="VARCHAR(40)"/>
+            <column name="index" remarks="индекс" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Column" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672956301685-7">
+        <addUniqueConstraint columnNames="inn" constraintName="profile_inn_key" tableName="profile"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672956301685-8">
+        <addUniqueConstraint columnNames="snils" constraintName="profile_snils_key" tableName="profile"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672956301685-9">
+        <addForeignKeyConstraint baseColumnNames="actual_registration_id" baseTableName="profile" constraintName="actual_registration__profile_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="actual_registration"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672956301685-10">
+        <addForeignKeyConstraint baseColumnNames="passport_id" baseTableName="profile" constraintName="passport__profile_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="passport"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672956301685-11">
+        <addForeignKeyConstraint baseColumnNames="profile_id" baseTableName="account_details_id" constraintName="profile__account_details_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="profile"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672956301685-12">
+        <addForeignKeyConstraint baseColumnNames="registration_id" baseTableName="passport" constraintName="registration__passport_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="registration"/>
+    </changeSet>
+</databaseChangeLog>

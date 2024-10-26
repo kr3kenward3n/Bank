@@ -1,0 +1,14 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+    <changeSet author="Алексей" id="1672954987388-8">
+        <renameTable oldTableName="suspicious_account_transfers" newTableName="suspicious_account_transfer"/>
+    </changeSet>
+    <changeSet author="Алексей" id="1672954987388-9">
+        <renameTable oldTableName="suspicious_phone_transfers" newTableName="suspicious_phone_transfer"/>
+    </changeSet>
+</databaseChangeLog>

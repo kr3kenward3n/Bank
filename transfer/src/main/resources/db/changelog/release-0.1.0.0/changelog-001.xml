@@ -1,0 +1,90 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+    <changeSet author="Рустам" id="1672954525823-1">
+        <createTable remarks="переводы по номеру счёта" tableName="account_transfer">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="account_transfer_pkey"/>
+            </column>
+            <column name="account_number" remarks="номер счёта по которому переводить деньги" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" remarks="сумма перевода" type="numeric(20, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="purpose" remarks="цель перевода денег" type="TEXT"/>
+            <column name="account_details_id" remarks="технический идентификатор банковского счета" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672954525823-2">
+        <createTable remarks="аудит" tableName="audit">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="audit_pkey"/>
+            </column>
+            <column name="entity_type" remarks="тип сущности" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="operation_type" remarks="тип операции" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" remarks="кто создал" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_by" remarks="кто изменил" type="VARCHAR(255)"/>
+            <column name="created_at" remarks="когда создан" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_at" remarks="когда обновлен" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="new_entity_json" remarks="json, заполняется при изменении" type="TEXT"/>
+            <column name="entity_json" remarks="json, заполняется при измнении и при сохранении" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672954525823-3">
+        <createTable remarks="переводы по номеру карты" tableName="card_transfer">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="card_transfer_pkey"/>
+            </column>
+            <column name="card_number" remarks="номер карты по которому переводить деньги" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" remarks="сумма перевода" type="numeric(20, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="purpose" remarks="цель перевода денег" type="TEXT"/>
+            <column name="account_details_id" remarks="технический идентификатор банковского счета" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672954525823-4">
+        <createTable remarks="переводы по номеру телефона" tableName="phone_transfer">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="phone_transfer_pkey"/>
+            </column>
+            <column name="phone_number" remarks="номер телефона по которому переводить деньги" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" remarks="сумма перевода" type="numeric(20, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="purpose" remarks="цель перевода денег" type="TEXT"/>
+            <column name="account_details_id" remarks="технический идентификатор банковского счета" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672954525823-5">
+        <addUniqueConstraint columnNames="account_number" constraintName="account_transfer_account_number_key" tableName="account_transfer"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672954525823-6">
+        <addUniqueConstraint columnNames="card_number" constraintName="card_transfer_card_number_key" tableName="card_transfer"/>
+    </changeSet>
+</databaseChangeLog>

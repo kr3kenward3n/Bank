@@ -1,0 +1,24 @@
+server:
+  port: 8092
+  servlet:
+    context-path: /api/transfer
+management:
+  server:
+    port: 8192
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/postgres
+    username: user
+    password: password
+  liquibase:
+    default-schema: transfer
+    change-log: db/changelog/db.changelog-master.yaml
+    enabled: true
+    drop-first: false

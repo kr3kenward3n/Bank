@@ -1,0 +1,26 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /api/public-info
+management:
+  server:
+    port: 8190
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/postgres
+    username: user
+    password: password
+  liquibase:
+    default-schema: public_bank_information
+    change-log: db/changelog/db.changelog-master.yaml
+    enabled: true
+    drop-first: false
+  application:
+    name: public-info-app

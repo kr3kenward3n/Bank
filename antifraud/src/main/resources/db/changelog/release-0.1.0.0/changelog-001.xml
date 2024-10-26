@@ -1,0 +1,102 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+    <changeSet author="Рустам" id="1672954987388-1">
+        <createTable remarks="аудит" tableName="audit">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="audit_pkey"/>
+            </column>
+            <column name="entity_type" remarks="тип сущности" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="operation_type" remarks="тип операции" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" remarks="кто создал" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_by" remarks="кто изменил" type="VARCHAR(255)"/>
+            <column name="created_at" remarks="когда создан" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_at" remarks="когда изменен" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="new_entity_json" remarks="json, заполняется при изменении" type="TEXT"/>
+            <column name="entity_json" remarks="json, заполняется при изменение и при сохранении" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672954987388-2">
+        <createTable remarks="подозрительные переводы по номеру cчёта" tableName="suspicious_account_transfers">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="suspicious_account_transfers_pkey"/>
+            </column>
+            <column name="account_transfer_id" remarks="технический идентификатор на перевод по номеру cчёта" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_blocked" remarks="заблокировано ли" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_suspicious" remarks="подозрительный ли перевод" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blocked_reason" remarks="причина блокировки" type="TEXT"/>
+            <column name="suspicious_reason" remarks="причина почему перевод попал в антифрод" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672954987388-3">
+        <createTable remarks="подозрительные переводы по номеру карты" tableName="suspicious_card_transfer">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="suspicious_card_transfer_pkey"/>
+            </column>
+            <column name="card_transfer_id" remarks="технический идентификатор на перевод по номеру телефона" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_blocked" remarks="заблокировано ли" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_suspicious" remarks="подозрительный ли перевод" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blocked_reason" remarks="причина блокировки" type="TEXT"/>
+            <column name="suspicious_reason" remarks="причина почему перевод попал в антифрод" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672954987388-4">
+        <createTable remarks="подозрительные переводы по номеру телефона" tableName="suspicious_phone_transfers">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="suspicious_phone_transfers_pkey"/>
+            </column>
+            <column name="phone_transfer_id" remarks="технический идентификатор на перевод по номеру телефона" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_blocked" remarks="заблокировано ли" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_suspicious" remarks="подозрительный ли перевод" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blocked_reason" remarks="причина блокировки" type="TEXT"/>
+            <column name="suspicious_reason" remarks="причина почему перевод попал в антифрод" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672954987388-5">
+        <addUniqueConstraint columnNames="account_transfer_id" constraintName="suspicious_account_transfers_id_key" tableName="suspicious_account_transfers"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672954987388-6">
+        <addUniqueConstraint columnNames="card_transfer_id" constraintName="suspicious_card_transfer_id_key" tableName="suspicious_card_transfer"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672954987388-7">
+        <addUniqueConstraint columnNames="phone_transfer_id" constraintName="suspicious_phone_transfers_id_key" tableName="suspicious_phone_transfers"/>
+    </changeSet>
+</databaseChangeLog>

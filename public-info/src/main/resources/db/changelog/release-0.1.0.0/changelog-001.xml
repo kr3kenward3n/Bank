@@ -1,0 +1,149 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+    <changeSet author="Рустам" id="1672955251679-1">
+        <createTable remarks="банкомат" tableName="atm">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="atm_pkey"/>
+            </column>
+            <column name="address" remarks="адрес банкомата" type="VARCHAR(370)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_of_work" remarks="начало работы банкомата" type="time(6) WITH TIME ZONE"/>
+            <column name="end_of_work" remarks="конец работы банкомата" type="time(6) WITH TIME ZONE"/>
+            <column name="all_hours" remarks="работает ли банкомат круглосуточно" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="branch_id" remarks="ссылка на отделение, где стоит банкомат(null, если не стоит в отделении)" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-2">
+        <createTable remarks="аудит" tableName="audit">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="audit_pkey"/>
+            </column>
+            <column name="entity_type" remarks="тип сущности" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="operation_type" remarks="тип операции" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" remarks="кто создал" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_by" remarks="кто изменил" type="VARCHAR(255)"/>
+            <column name="created_at" remarks="когда создан" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_at" remarks="когда изменен" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="new_entity_json" remarks="json, заполняется при изменении" type="TEXT"/>
+            <column name="entity_json" remarks="json, заполняется при изменение и при сохранении" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-3">
+        <createTable remarks="реквизиты банка(общедоступная информация)" tableName="bank_details">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="bank_details_pkey"/>
+            </column>
+            <column name="bik" remarks="БИК" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="inn" remarks="ИНН" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kpp" remarks="КПП" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cor_account" remarks="корреспондентский счет" type="numeric(20, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" remarks="город, котором зарегистрирован юр. адрес банка" type="VARCHAR(180)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="joint_stock_company" remarks="акционерное общество" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" remarks="имя банка" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-4">
+        <createTable remarks="отделение банка" tableName="branch">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="branch_pkey"/>
+            </column>
+            <column name="address" remarks="адрес отделения" type="VARCHAR(370)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" remarks="номер телефона отделения" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" remarks="город в котором отделение" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_of_work" remarks="начало работы отделения" type="time(6) WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_of_work" remarks="конец работы отделения" type="time(6) WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-5">
+        <createTable remarks="сертификат" tableName="certificate">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="certificate_pkey"/>
+            </column>
+            <column name="photo" remarks="фотография лицензии" type="BYTEA">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bank_details_id" remarks="ccылка на реквизиты банка" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-6">
+        <createTable remarks="лицензия" tableName="license">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="license_pkey"/>
+            </column>
+            <column name="photo" remarks="фотография лицензии" type="BYTEA">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bank_details_id" remarks="ccылка на реквизиты банка" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-7">
+        <addUniqueConstraint columnNames="bik" constraintName="bank_details_bik_key" tableName="bank_details"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-8">
+        <addUniqueConstraint columnNames="cor_account" constraintName="bank_details_cor_account_key" tableName="bank_details"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-9">
+        <addUniqueConstraint columnNames="inn" constraintName="bank_details_inn_key" tableName="bank_details"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-10">
+        <addUniqueConstraint columnNames="kpp" constraintName="bank_details_kpp_key" tableName="bank_details"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-11">
+        <addUniqueConstraint columnNames="phone_number" constraintName="branch_phone_number_key" tableName="branch"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-12">
+        <addForeignKeyConstraint baseColumnNames="bank_details_id" baseTableName="certificate" constraintName="bank_details__certificate_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="bank_details"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-13">
+        <addForeignKeyConstraint baseColumnNames="bank_details_id" baseTableName="license" constraintName="bank_details__license_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="bank_details"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955251679-14">
+        <addForeignKeyConstraint baseColumnNames="branch_id" baseTableName="atm" constraintName="branch__atm_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="branch"/>
+    </changeSet>
+</databaseChangeLog>

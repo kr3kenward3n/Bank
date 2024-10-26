@@ -1,0 +1,28 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /api/profile
+management:
+  server:
+    port: 8189
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/postgres
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    default-schema: profile
+    change-log: db/changelog/db.changelog-master.yaml
+    enabled: true
+    drop-first: false
+  application:
+    name: profile-app
+
