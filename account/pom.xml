@@ -29,6 +29,12 @@
             <artifactId>common</artifactId>
             <version>${com.bank.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+            <version>1.18.30</version>
+        </dependency>
     </dependencies>
 
     <build>
