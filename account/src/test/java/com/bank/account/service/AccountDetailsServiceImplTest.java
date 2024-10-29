@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,7 +63,7 @@ class AccountDetailsServiceImplTest {
 
     @Test
     void findAllById_ShouldReturnListOfAccountDetailsDto_WhenEntitiesExist() {
-        List<Long> ids = Arrays.asList(ACCOUNT_ID);
+        List<Long> ids = List.of(ACCOUNT_ID);
         when(repository.findById(ACCOUNT_ID)).thenReturn(Optional.of(ACCOUNT_DETAILS_ENTITY));
         when(mapper.toDtoList(List.of(ACCOUNT_DETAILS_ENTITY))).thenReturn(List.of(ACCOUNT_DETAILS_DTO));
 
