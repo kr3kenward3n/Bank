@@ -16,7 +16,6 @@ public class HistoryMapperTest {
 
     @Test
     public void testToEntity() {
-        // Arrange
         HistoryDto historyDto = HistoryDto.builder()
                 .transferAuditId(1L)
                 .profileAuditId(2L)
@@ -26,23 +25,19 @@ public class HistoryMapperTest {
                 .authorizationAuditId(6L)
                 .build();
 
-        // Act
         HistoryEntity historyEntity = historyMapper.toEntity(historyDto);
 
-        // Assert
         assertEquals(historyDto.getTransferAuditId(), historyEntity.getTransferAuditId());
         assertEquals(historyDto.getProfileAuditId(), historyEntity.getProfileAuditId());
         assertEquals(historyDto.getAccountAuditId(), historyEntity.getAccountAuditId());
         assertEquals(historyDto.getAntiFraudAuditId(), historyEntity.getAntiFraudAuditId());
         assertEquals(historyDto.getPublicBankInfoAuditId(), historyEntity.getPublicBankInfoAuditId());
         assertEquals(historyDto.getAuthorizationAuditId(), historyEntity.getAuthorizationAuditId());
-        // Убедитесь, что id игнорируется
         assertEquals(null, historyEntity.getId());
     }
 
     @Test
     public void testToDto() {
-        // Arrange
         HistoryEntity historyEntity = new HistoryEntity();
         historyEntity.setTransferAuditId(1L);
         historyEntity.setProfileAuditId(2L);
@@ -51,10 +46,8 @@ public class HistoryMapperTest {
         historyEntity.setPublicBankInfoAuditId(5L);
         historyEntity.setAuthorizationAuditId(6L);
 
-        // Act
         HistoryDto historyDto = historyMapper.toDto(historyEntity);
 
-        // Assert
         assertEquals(historyEntity.getTransferAuditId(), historyDto.getTransferAuditId());
         assertEquals(historyEntity.getProfileAuditId(), historyDto.getProfileAuditId());
         assertEquals(historyEntity.getAccountAuditId(), historyDto.getAccountAuditId());
@@ -65,7 +58,6 @@ public class HistoryMapperTest {
 
     @Test
     public void testMergeToEntity() {
-        // Arrange
         HistoryDto historyDto = HistoryDto.builder()
                 .transferAuditId(10L)
                 .profileAuditId(20L)
@@ -83,23 +75,19 @@ public class HistoryMapperTest {
         historyEntity.setPublicBankInfoAuditId(5L);
         historyEntity.setAuthorizationAuditId(6L);
 
-        // Act
         historyMapper.mergeToEntity(historyDto, historyEntity);
 
-        // Assert
         assertEquals(historyDto.getTransferAuditId(), historyEntity.getTransferAuditId());
         assertEquals(historyDto.getProfileAuditId(), historyEntity.getProfileAuditId());
         assertEquals(historyDto.getAccountAuditId(), historyEntity.getAccountAuditId());
         assertEquals(historyDto.getAntiFraudAuditId(), historyEntity.getAntiFraudAuditId());
         assertEquals(historyDto.getPublicBankInfoAuditId(), historyEntity.getPublicBankInfoAuditId());
         assertEquals(historyDto.getAuthorizationAuditId(), historyEntity.getAuthorizationAuditId());
-        // Убедитесь, что id игнорируется
         assertEquals(null, historyEntity.getId());
     }
 
     @Test
     public void testToListDto() {
-        // Arrange
         HistoryEntity entity1 = new HistoryEntity();
         entity1.setTransferAuditId(1L);
         entity1.setProfileAuditId(2L);
@@ -110,10 +98,8 @@ public class HistoryMapperTest {
 
         List<HistoryEntity> historyEntityList = Arrays.asList(entity1, entity2);
 
-        // Act
         List<HistoryDto> historyDtoList = historyMapper.toListDto(historyEntityList);
 
-        // Assert
         assertEquals(historyEntityList.size(), historyDtoList.size());
         assertEquals(historyEntityList.get(0).getTransferAuditId(), historyDtoList.get(0).getTransferAuditId());
         assertEquals(historyEntityList.get(0).getProfileAuditId(), historyDtoList.get(0).getProfileAuditId());
